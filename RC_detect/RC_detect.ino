@@ -351,7 +351,9 @@ void DetectRC(){
 }
 
 void SBus(){
+  
   Serial1.begin(100000);
+  timer = millis();
   while (Serial1.available() == 0){
     if (millis() - timer > 1000){
       return;
@@ -364,8 +366,9 @@ void SBus(){
 }
 
 void Spektrum(){
-  timer = millis();
+  
   Serial1.begin(115200);
+  timer = millis();
   while (Serial1.available() == 0){
     if (millis() - timer > 1000){
       return;
