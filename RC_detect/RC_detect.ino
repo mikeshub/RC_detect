@@ -12,6 +12,8 @@ This sketch only works on the MEGA
  Provided that the servo travel extents are left to the defualts and no trim is being used.
  
  It will work with different extents and trims, but the mapping will change slightly
+ 
+ Spektrum is set to use Serial2 SBUS set to use Serial1
 
  
  Copyright (C) 2013  Michael Baker
@@ -86,6 +88,7 @@ uint8_t sBusData[25];
 
 void setup(){
   Serial.begin(115200);
+  Serial.println("begin");
   DetectRC();
   if (rcType == RC){
     DDRK = 0;//PORTK as input
@@ -226,9 +229,9 @@ void SBusParser(){
 
 void DSMXParser(){
 
-  if (Serial1.available() > 14){
-    while(Serial1.available() > 0){
-      inByte = Serial1.read();
+  if (Serial2.available() > 14){
+    while(Serial2.available() > 0){
+      inByte = Serial2.read();
       switch (readState){
       case 0:
         if (inByte == HEX_ZERO || inByte == 0x2D || inByte == 0x5A || inByte == 0x87 || inByte == 0xB4 || inByte == 0xE1 || inByte == 0xFF){
@@ -272,9 +275,9 @@ void DSMXParser(){
 }
 void DSM2Parser(){
 
-  if (Serial1.available() > 14){
-    while(Serial1.available() > 0){
-      inByte = Serial1.read();
+  if (Serial2.available() > 14){
+    while(Serial2.available() > 0){
+      inByte = Serial2.read();
       switch (readState){
       case 0:
         if (inByte == 0x03 || 0x21){
@@ -355,7 +358,7 @@ void SBus(){
   Serial1.begin(100000);
   timer = millis();
   while (Serial1.available() == 0){
-    if (millis() - timer > 1000){
+    if (millis() - timer > 5000){
       return;
     }
   }
@@ -367,16 +370,16 @@ void SBus(){
 
 void Spektrum(){
   
-  Serial1.begin(115200);
+  Serial2.begin(115200);
   timer = millis();
-  while (Serial1.available() == 0){
-    if (millis() - timer > 1000){
+  while (Serial2.available() == 0){
+    if (millis() - timer > 5000){
       return;
     }
   }  
   delay(1);
-  while (Serial1.available() > 0){
-    inByte = Serial1.read();
+  while (Serial2.available() > 0){
+    inByte = Serial2.read();
     switch(readState){
     case 0:
       if (inByte == 0x03 || 0x21){
