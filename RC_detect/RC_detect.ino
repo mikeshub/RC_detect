@@ -12,9 +12,7 @@ This sketch only works on the MEGA
  Provided that the servo travel extents are left to the defualts and no trim is being used.
  
  It will work with different extents and trims, but the mapping will change slightly
- 
- Serial1 is for SBUS
- Serial2
+
  
  Copyright (C) 2013  Michael Baker
  
