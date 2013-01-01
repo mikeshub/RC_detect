@@ -14,7 +14,7 @@ This sketch only works on the MEGA
  It will work with different extents and trims, but the mapping will change slightly
  
  Spektrum is set to use Serial2 SBUS set to use Serial1
-
+ 
  
  Copyright (C) 2013  Michael Baker
  
@@ -126,7 +126,9 @@ void loop(){
 }
 
 void Center(){
+
   while (newData == false){
+    delay(1);
   }
 
   offset = rcCommands.values.aileron - 1500;
@@ -354,11 +356,11 @@ void DetectRC(){
 }
 
 void SBus(){
-  
+
   Serial1.begin(100000);
   timer = millis();
   while (Serial1.available() == 0){
-    if (millis() - timer > 5000){
+    if (millis() - timer > 1000){
       return;
     }
   }
@@ -369,11 +371,10 @@ void SBus(){
 }
 
 void Spektrum(){
-  
   Serial2.begin(115200);
   timer = millis();
   while (Serial2.available() == 0){
-    if (millis() - timer > 5000){
+    if (millis() - timer > 1000){
       return;
     }
   }  
@@ -413,6 +414,13 @@ void Spektrum(){
 
   }
 }
+
+
+
+
+
+
+
 
 
 
